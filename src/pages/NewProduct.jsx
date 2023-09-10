@@ -1,8 +1,14 @@
+import styles from "./NewProduct.module.css";
 import { useState } from "react";
+import Button from "../components/ui/Button";
+import { uploadImage } from "../api/uploader";
+import { addNewProduct } from "../api/firebase";
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
+  const [isUploading, setIsUploading] = useState(false);
+  const [success, setSuccess] = useState();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -13,11 +19,35 @@ export default function NewProduct() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e) => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    uploadImage(file) //
+      .then((url) => {
+        console.log(url);
+        addNewProduct(product, url) //
+          .then(() => {
+            setSuccess("Successfully added an item");
+            setTimeout(() => {
+              setSuccess(null);
+            }, 4000);
+          });
+      })
+      .finally(() => setIsUploading(false));
+  };
 
   return (
-    <section>
-      <form onSubmit={handleSubmit}>
+    <section className={styles.container}>
+      <h2>List a New Item</h2>
+      {success && <p className={styles.status}>✔️ {success}</p>}
+      {file && (
+        <img
+          className={styles.image}
+          src={URL.createObjectURL(file)}
+          alt="local file"
+        />
+      )}
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="file"
           accept="image/*"
@@ -32,6 +62,42 @@ export default function NewProduct() {
           placeholder="product title"
           required={true}
           onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="price"
+          value={product.price ?? ""}
+          placeholder="price"
+          required={true}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="category"
+          value={product.category ?? ""}
+          placeholder="category"
+          required={true}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="description"
+          value={product.description ?? ""}
+          placeholder="description"
+          required={true}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="options"
+          value={product.options ?? ""}
+          placeholder="options (separate with commas)"
+          required={true}
+          onChange={handleChange}
+        />
+        <Button
+          text={isUploading ? "Uploading..." : "List Product"}
+          disabled={isUploading}
         />
       </form>
     </section>

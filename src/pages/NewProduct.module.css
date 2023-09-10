@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+.status {
+  margin: 0.5rem;
+}
+
+.image {
+  width: 24rem;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+  padding-top: 0;
+}

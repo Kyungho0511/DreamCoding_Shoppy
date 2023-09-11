@@ -1,0 +1,21 @@
+.container {
+  background-color: var(--color-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+
+  > p {
+    margin: 0.5rem;
+  }
+
+  .price {
+    font-weight: bold;
+    color: var(--color-brand);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  p {
+    font-size: 1.2rem;
+  }
+}

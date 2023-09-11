@@ -1,8 +1,8 @@
 :root {
   --color-black: black;
   --color-grey: #5c5c5c;
-  --color-grey-light: #b9b9b9;
-  --color-white: white;
+  --color-grey-light: #d4d4d4;
+  --color-white: rgb(247, 247, 247);
   --color-zinc: rgb(24, 24, 27);
   --color-zinc-light: rgb(82, 82, 91);
   --color-yellow-dark: rgb(113, 63, 18);

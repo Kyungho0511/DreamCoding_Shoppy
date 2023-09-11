@@ -1,0 +1,55 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.container {
+  display: flex;
+  flex: 1 1 0%;
+  justify-content: space-between;
+  margin-left: 1rem;
+}
+
+.text {
+  flex-basis: 60%;
+
+  > h4,
+  p {
+    margin: 0.25rem;
+  }
+}
+
+.option {
+  font-weight: bold;
+  color: var(--color-brand);
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.icon {
+  margin: 0.25rem;
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--color-brand);
+  transform: scale(1.05);
+}
+
+.image {
+  width: 10rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .image {
+    width: 14rem;
+  }
+}

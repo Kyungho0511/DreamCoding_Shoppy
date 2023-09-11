@@ -1,22 +1,20 @@
 import styles from "./MyCart.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { useAuthContext } from "../context/AuthContext";
-import { getCart } from "../api/firebase";
 import CartItem from "../components/CartItem";
 import PriceCard from "../components/PriceCard";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { FaEquals } from "react-icons/fa";
 import Button from "../components/ui/Button";
+import useCart from "../hooks/useCart";
 
 const SHIPPING = 30;
 
 export default function MyCart() {
-  const { uid } = useAuthContext();
-  const { isLoading, data: products } = useQuery(["carts"], () => getCart(uid));
+  const {
+    cartQuery: { isLoading, data: products },
+  } = useCart();
 
   if (isLoading) return <p>Loading...</p>;
   const hasProducts = products && products.length > 0;
-  products && console.log(products);
   const totalPrice =
     products &&
     products.reduce(
@@ -33,7 +31,7 @@ export default function MyCart() {
           <ul className={styles.list}>
             {products &&
               products.map((product) => (
-                <CartItem key={product.id} product={product} uid={uid} />
+                <CartItem key={product.id} product={product} />
               ))}
           </ul>
           <div className={styles.price}>
